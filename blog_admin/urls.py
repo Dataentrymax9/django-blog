@@ -19,11 +19,15 @@ from django.urls import path,include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from blog import views as Blogviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.Home,name='home'),
     path('category/',include('blog.urls')),
+    path('<slug:b_slug>/',Blogviews.blog,name='blog'),
+    # Search Point
+    path('blog/search',Blogviews.search,name='search')
 ]
 
 if settings.DEBUG:

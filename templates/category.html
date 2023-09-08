@@ -1,17 +1,6 @@
 {% extends 'base.html' %}
  {% block content %}   
- {% for fp in feature_post %} 
- {% if forloop.first %}
-<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark" style="background-image: url({{fp.featured_image.url}});background-blend-mode: overlay;background-size:cover;">
-    <div class="col-md-8 px-0">
-      <h1 class="display-4 font-italic">{{fp.title}}</h1>
-      <p class="lead my-3">{{ fp.short_desc | truncatewords:25 }}</p>
-      <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
-    </div>
-  </div>
-  {% endif %}
-{% endfor %}
-<!-- Feature Post -->
+
 <div class="row">
   <div class="col-12">
     <h2 class="blog-post-title text-warning">Category - {{category}}</h2>
@@ -23,7 +12,7 @@
     <div class="col-md-6">
       <div class="card border-0" >
         <div class="card-body">
-          <h3>{{fp.title}}</h3>
+          <h3><a href="{% url 'blog' fp.slug %}" class="text-dark">{{fp.title}}</a></h3>
           <small class="mb-1 text-muted">{{fp.created_at | timesince}} | {{fp.author}}</small>
           <p class="card-text">{{ fp.short_desc | truncatewords:10 }}</p>
         </div>

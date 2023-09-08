@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+      <h2 class="blog-post-title text-warning">Search Tearm - {{keyword}}</h2>
+    </div>
+  </div>
+    <div class="row mb-2">
+      {% if blog %}
+      {% for fp in blog %}
+      <div class="col-md-6">
+        <div class="card border-0" >
+          <div class="card-body">
+            <h3><a href="{% url 'blog' fp.slug %}" class="text-dark">{{fp.title}}</a></h3>
+            <small class="mb-1 text-muted">{{fp.created_at | timesince}} | {{fp.author}}</small>
+            <p class="card-text">{{ fp.short_desc | truncatewords:10 }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <h3>No post found</h3>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
