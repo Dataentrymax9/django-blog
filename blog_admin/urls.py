@@ -25,9 +25,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.Home,name='home'),
     path('category/',include('blog.urls')),
-    path('<slug:b_slug>/',Blogviews.blog,name='blog'),
+    path('blog/<slug:b_slug>/',Blogviews.blog,name='blog'),
     # Search Point
-    path('blog/search',Blogviews.search,name='search')
+    path('blog/search',Blogviews.search,name='search'),
+    path('register/',views.Register,name='register'),
+    path('login/',views.Login,name='login'),
+    path('logout/',views.Logout,name='logout')
 ]
 
 if settings.DEBUG:

@@ -26,8 +26,12 @@ def blog(request,b_slug):
     return render(request,'single_blog.html',context)
 
 def search(request):
-    keyword = request.GET.get('keyword')
-    blog = Blog.objects.filter(Q(title__icontains=keyword) | Q(short_desc__icontains = keyword),status='Published')
+    if request.method == 'GET':
+        keyword = request.GET.get('keyword')
+        if keyword != None:
+            blog = Blog.objects.filter(Q(title__icontains=keyword) | Q(short_desc__icontains = keyword),status='Published')
+        if keyword == "":
+            return render(request,"search.html",{"error":True})   
     context = {
         'blog' : blog,
         'keyword' : keyword
