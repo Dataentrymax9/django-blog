@@ -7,7 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 
 def Home(request):
-    feature_post = Blog.objects.filter(is_featured=True,status='Published').order_by('update_at')
+    feature_post = Blog.objects.filter(is_featured=True,status='Published').order_by('-update_at')
     s_post = Blog.objects.filter(is_featured=False,status='Published')
     about = About.objects.get()
     context = {
@@ -31,6 +31,8 @@ def Register(request):
     return render(request,'register.html',context)
 
 def Login(request):
+    if request.user.is_authenticated:
+      return redirect('dashboard')  
     if request.method == 'POST':
         form = AuthenticationForm(request,request.POST)
         if form.is_valid():
@@ -39,7 +41,7 @@ def Login(request):
             user = auth.authenticate(username=username,password=password)
             if user is not None:
                 auth.login(request,user)
-            return redirect('home')
+            return redirect('dashboard')
     form = AuthenticationForm()
     context = {
         'form' : form

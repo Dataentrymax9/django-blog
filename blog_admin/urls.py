@@ -30,7 +30,9 @@ urlpatterns = [
     path('blog/search',Blogviews.search,name='search'),
     path('register/',views.Register,name='register'),
     path('login/',views.Login,name='login'),
-    path('logout/',views.Logout,name='logout')
+    path('logout/',views.Logout,name='logout'),
+    #dashboard
+    path('dashboard/',include('dashboard.urls'))
 ]
 
 if settings.DEBUG:
