@@ -7,6 +7,7 @@
        {% include 'dashboard/sidebar.html' %}
 
         <!-- Right-sidebar -->
+        {% if request.user.is_authenticated %}
         <div class="col-md-9">
             <h3 class="text-success float-left" style="margin-bottom: 20px;">All Categories</h3>
             <span class="float-right"><a href="{% url 'add_categories' %}" class="btn btn-dark text-light">Add New Category</a></span>
@@ -37,6 +38,9 @@
                 </tbody>
               </table>
         </div>
+        {% else %}
+        <h2>You are not permit to show the post</h2>
+        {% endif %}
     </div>
 </section>
 {% endblock %}

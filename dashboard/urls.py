@@ -11,6 +11,10 @@ urlpatterns = [
     path('post/',views.Post,name='post'),
     path('post/add',views.PostAdd,name='postadd'),
     path('post/edit/<int:pk>/',views.EditPost,name='edit_post'),
-    path('post/delete/<int:pk>/',views.PostDelete,name='post_delete')
+    path('post/delete/<int:pk>/',views.PostDelete,name='post_delete'),
+    path('user/',views.BlogUser,name='blog_user'),
+    path('user/add/',views.AddUser,name='add_user'),
+    path('user/edit/<int:pk>/',views.EditUser,name='edit_user'),
+    path('user/delete/<int:pk>/',views.UserDelete,name='user_delete')
 
 ]

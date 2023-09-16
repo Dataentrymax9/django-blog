@@ -18,6 +18,8 @@ def Home(request):
     return render(request,'index.html',context)
 
 def Register(request):
+    if request.user.is_authenticated:
+      return redirect('dashboard')
     if request.method == "POST":
         form =RegistractionForm(request.POST)
         if form.is_valid():
