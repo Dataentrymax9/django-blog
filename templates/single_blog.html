@@ -21,6 +21,37 @@
                 <section class="mb-5">
                     <p class="fs-5 mb-4">{{Sblog.short_desc}}</p>
                     <p class="fs-5 mb-4">{{Sblog.blog_body | safe}}</p>
+                    <!-- Comments -->
+                    <h4>Comments ({{count}})</h4>
+                    {% if comments %}
+                     {% for comment in comments %}
+                     <div class="card" style="margin-bottom: 10px;">
+                        <div class="card-body">
+                            <p class="card-text" style="margin-bottom: 0;">
+                                {{comment | safe}}
+                            </p>
+                            <span>
+                                <small>By {{comment.user}} |</small>
+                                <small>{{comment.created_at | timesince}} ago</small>
+                            </span>
+                        </div>
+                     </div>
+                     {% endfor %}
+                    {% else %}
+                     No comments yet.
+                    {% endif %}
+                    <br>
+                    <div class="form-group">
+                        {% if user.is_authenticated %}
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <textarea style="margin-bottom: 10px;" name="comment" class="form-control" rows="5" placeholder="Write a comment"></textarea>
+                            <input type="submit" value="Submit"  class="btn btn-primary">
+                        </form>
+                        {% else %}
+                        <p>Please <a href="{% url 'login' %}">Login</a> to write a comment</p>
+                        {% endif %}
+                    </div>
                     </section>
             </article>
         </div>

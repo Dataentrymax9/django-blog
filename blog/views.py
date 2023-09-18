@@ -1,6 +1,6 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Blog, Category
+from .models import Blog, Category, comment
 from django.db.models import Q
 
 
@@ -20,8 +20,20 @@ def CategoryPost(request,cat_id):
     
 def blog(request,b_slug):
     single_blog = get_object_or_404(Blog,slug=b_slug)
+    #cmments
+    if request.method == "POST":
+        comments = comment()   
+        comments.user = request.user
+        comments.blog = single_blog
+        comments.comment = request.POST['comment']
+        comments.save()
+        return HttpResponseRedirect(request.path_info)
+    comments = comment.objects.filter(blog=single_blog)
+    count = comments.count()
     context = {
-        "Sblog" : single_blog
+        "Sblog" : single_blog,
+        'comments' : comments,
+        'count' : count
     }
     return render(request,'single_blog.html',context)
 
